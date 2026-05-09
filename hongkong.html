@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅の記憶 ｜ 軌跡とささやかな記録</title>
+    <style>
+        :root {
+            --bg-base: #fcfaf5;
+            --text-main: #2a2a2a;
+            --accent-gold: #b38b4d;
+            --font-serif: "Hiragino Mincho ProN", "Yu Mincho", serif;
+        }
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-serif);
+            line-height: 1.8;
+            padding: 10vh 10vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+        .subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            letter-spacing: 0.05em;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            width: 100%;
+            max-width: 900px;
+        }
+        .card {
+            background: #ffffff;
+            border: 1px solid rgba(179, 139, 77, 0.15);
+            padding: 2.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(179, 139, 77, 0.08);
+            border-color: var(--accent-gold);
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+        .card-desc {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .card-link {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: bold;
+        }
+        footer {
+            margin-top: auto;
+            padding-top: 4rem;
+            font-size: 0.75rem;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>旅の記憶</h1>
+    <p class="subtitle">いくつかの経由地、軌跡、そして供養としての記録</p>
+</header>
+
+<main class="grid">
+    <a href="vietnam.html" class="card">
+        <div>
+            <h2 class="card-title">ベトナム旅行記</h2>
+            <p class="card-desc">「経由地のある人生」――ハノイからホイアンへ。壊れかけた自己を修復するための、静かなる再建の旅路。</p>
+        </div>
+        <span class="card-link">Read Story →</span>
+    </a>
+    
+    <a href="hongkong.html" class="card">
+        <div>
+            <h2 class="card-title">香港滞在記</h2>
+            <p class="card-desc">珠江（しゅこう）デルタを巡る旅。</p>
+        </div>
+        <span class="card-link">Read Story →</span>
+    </a>
+
+    <a href="malaysia.html" class="card">
+        <div>
+            <h2 class="card-title">マレー鉄道と食の旅</h2>
+            <p class="card-desc">シンガポールからペナン、そしてバンコクへ。車窓を流れる熱帯の景色と、混ざり合う文化を五感で辿る。</p>
+        </div>
+        <span class="card-link">Read Story →</span>
+    </a>
+
+    <a href="kyoto.html" class="card">
+        <div>
+            <h2 class="card-title">冬の京都</h2>
+            <p class="card-desc">「供養という形式」――冷徹な冬の空気のなかで、静かに過去と向き合い、手向けるための散策。</p>
+        </div>
+        <span class="card-link">Read Story →</span>
+    </a>
+</main>
+
+<footer>
+    <p>© Travelogue Portfolio</p>
+</footer>
+
+</body>
+</html>
