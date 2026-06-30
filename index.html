@@ -1,181 +1,523 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>旅の記憶 ｜ 軌跡とささやかな記録</title>
-    <style>
-        :root {
-            --bg-base: #fcfaf5;
-            --text-main: #2a2a2a;
-            --accent-gold: #b38b4d;
-            --font-serif: "Hiragino Mincho ProN", "Yu Mincho", serif;
-        }
-        body {
-            background-color: var(--bg-base);
-            color: var(--text-main);
-            font-family: var(--font-serif);
-            line-height: 1.8;
-            padding: 10vh 10vw;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        h1 {
-            font-size: 2rem;
-            font-weight: 400;
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
-        }
-        .subtitle {
-            font-size: 0.9rem;
-            color: #666;
-            letter-spacing: 0.05em;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-            width: 100%;
-            max-width: 900px;
-        }
-        .card {
-            background: #ffffff;
-            border: 1px solid rgba(179, 139, 77, 0.15);
-            padding: 2.5rem;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(179, 139, 77, 0.08);
-            border-color: var(--accent-gold);
-        }
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 400;
-            margin-bottom: 1rem;
-            color: var(--text-main);
-        }
-        .card-desc {
-            font-size: 0.85rem;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-        .card-link {
-            font-size: 0.8rem;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: bold;
-        }
-        footer {
-            margin-top: auto;
-            padding-top: 4rem;
-            font-size: 0.75rem;
-            color: #999;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>旅の記憶 ｜ 軌跡とささやかな記録</title>
+<style>
+  :root{
+    --paper:#f3efe4;
+    --paper-card:#fbf9f3;
+    --ink:#1e2421;
+    --ink-soft:#5b6259;
+    --stamp-red:#a8402c;
+    --route-teal:#2c4a52;
+    --line:#c9c2ad;
+    --serif: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+    --sans: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif;
+    --mono: "SF Mono", "Courier New", monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.012) 0px, rgba(0,0,0,0.012) 1px, transparent 1px, transparent 3px),
+      var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    overflow-x:hidden;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:8vh 6vw;
+    border-bottom:1px dashed var(--line);
+  }
+  .hero::before, .hero::after{
+    content:"";
+    position:absolute;
+    width:18px;height:18px;
+    border-radius:50%;
+    background:var(--paper);
+    box-shadow: 0 0 0 1px var(--line) inset;
+    bottom:-9px;
+  }
+  .hero::before{left:-9px;}
+  .hero::after{right:-9px;}
+  .eyebrow-mono{
+    font-family:var(--mono);
+    font-size:0.7rem;
+    letter-spacing:0.35em;
+    color:var(--route-teal);
+    text-transform:uppercase;
+    margin-bottom:1.4rem;
+  }
+  .hero h1{
+    font-family:var(--serif);
+    font-weight:800;
+    font-size:clamp(2.6rem, 7vw, 5rem);
+    letter-spacing:0.08em;
+    margin:0 0 1.2rem;
+    line-height:1.25;
+  }
+  .hero p.lead{
+    font-size:0.95rem;
+    color:var(--ink-soft);
+    max-width:34em;
+    line-height:2;
+    letter-spacing:0.04em;
+  }
+  .passport-meta{
+    margin-top:3rem;
+    display:flex;
+    gap:2.2rem;
+    flex-wrap:wrap;
+    justify-content:center;
+    font-family:var(--mono);
+    font-size:0.68rem;
+    color:var(--ink-soft);
+    letter-spacing:0.08em;
+  }
+  .passport-meta span b{display:block;color:var(--ink);font-size:0.95rem;margin-top:2px;}
+
+  .scroll-cue{
+    position:absolute;
+    bottom:3rem;
+    font-family:var(--mono);
+    font-size:0.65rem;
+    letter-spacing:0.3em;
+    color:var(--ink-soft);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.6rem;
+  }
+  .scroll-cue .line{
+    width:1px;height:42px;
+    background:linear-gradient(var(--ink-soft), transparent);
+    animation:pulse-line 2s ease-in-out infinite;
+  }
+  @keyframes pulse-line{
+    0%,100%{opacity:.3; transform:scaleY(0.6); transform-origin:top;}
+    50%{opacity:1; transform:scaleY(1); transform-origin:top;}
+  }
+
+  /* ===== ROUTE / TIMELINE ===== */
+  .route-wrap{
+    position:relative;
+    max-width:980px;
+    margin:0 auto;
+    padding: 10vh 6vw 14vh;
+  }
+  .route-line{
+    position:absolute;
+    left:50%;
+    top:0;
+    bottom:0;
+    width:2px;
+    transform:translateX(-50%);
+    background-image: linear-gradient(var(--route-teal) 60%, transparent 0%);
+    background-size: 2px 14px;
+    background-repeat:repeat-y;
+    opacity:0.45;
+  }
+  @media (max-width:760px){
+    .route-line{ left:26px; }
+  }
+
+  .entry{
+    position:relative;
+    display:grid;
+    grid-template-columns: 1fr 70px 1fr;
+    align-items:start;
+    margin-bottom:9vh;
+    opacity:0;
+    transform:translateY(34px);
+    transition: opacity 0.9s cubic-bezier(.2,.7,.2,1), transform 0.9s cubic-bezier(.2,.7,.2,1);
+  }
+  .entry.in-view{ opacity:1; transform:translateY(0); }
+
+  .stamp-col{
+    display:flex;
+    justify-content:center;
+    padding-top:0.4rem;
+  }
+  .stamp{
+    width:54px;height:54px;
+    border-radius:50%;
+    border:2px solid var(--stamp-red);
+    color:var(--stamp-red);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--mono);
+    font-size:0.62rem;
+    font-weight:700;
+    letter-spacing:0.03em;
+    text-align:center;
+    background:var(--paper);
+    transform: rotate(-12deg) scale(0.6);
+    opacity:0;
+    transition: transform 0.6s cubic-bezier(.34,1.56,.64,1), opacity 0.4s ease;
+    transition-delay:0.25s;
+    box-shadow: 0 0 0 1px rgba(168,64,44,0.15) inset;
+  }
+  .entry.in-view .stamp{ transform:rotate(-12deg) scale(1); opacity:1; }
+
+  .entry:nth-child(even) .card{ grid-column:1; }
+  .entry:nth-child(even) .spacer{ grid-column:3; }
+  .entry:nth-child(odd) .card{ grid-column:3; }
+  .entry:nth-child(odd) .spacer{ grid-column:1; }
+
+  @media (max-width:760px){
+    .entry{ grid-template-columns: 56px 1fr; margin-bottom:7vh; }
+    .stamp-col{ grid-column:1; justify-content:flex-start; padding-left:0; }
+    .stamp{ width:44px; height:44px; font-size:0.52rem; }
+    .entry:nth-child(even) .card, .entry:nth-child(odd) .card{ grid-column:2; }
+    .spacer{ display:none; }
+  }
+
+  .card{
+    background:var(--paper-card);
+    border:1px solid var(--line);
+    position:relative;
+    text-decoration:none;
+    color:inherit;
+    display:block;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    box-shadow: 0 14px 30px rgba(30,36,33,0.1);
+    border-color:var(--route-teal);
+  }
+  .card:hover .photo-ph{ filter:saturate(1.05); }
+  .card:hover .card-link span{ transform:translateX(4px); }
+
+  .photo-ph{
+    aspect-ratio: 4/3;
+    width:100%;
+    position:relative;
+    overflow:hidden;
+    background:
+      linear-gradient(135deg, var(--ph-a, #d9d2bd), var(--ph-b, #b9bfb2));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .photo-ph svg{ width:38%; opacity:0.55; }
+  .photo-ph .ph-label{
+    position:absolute;
+    bottom:8px; right:10px;
+    font-family:var(--mono);
+    font-size:0.58rem;
+    color:rgba(30,36,33,0.55);
+    letter-spacing:0.05em;
+  }
+
+  .card-body{ padding:1.6rem 1.7rem 1.8rem; }
+  .card-route{
+    font-family:var(--mono);
+    font-size:0.65rem;
+    color:var(--route-teal);
+    letter-spacing:0.12em;
+    margin-bottom:0.7rem;
+    display:flex;
+    align-items:center;
+    gap:0.5rem;
+  }
+  .card-route::after{ content:""; flex:1; height:1px; background:var(--line); }
+  .card-title{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:1.3rem;
+    margin:0 0 0.7rem;
+    letter-spacing:0.03em;
+  }
+  .card-desc{
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    line-height:1.85;
+    margin:0 0 1.3rem;
+  }
+  .card-link{
+    font-family:var(--mono);
+    font-size:0.7rem;
+    letter-spacing:0.08em;
+    color:var(--stamp-red);
+    text-transform:uppercase;
+    display:inline-flex;
+    align-items:center;
+    gap:0.4rem;
+  }
+  .card-link span{ transition:transform 0.3s ease; display:inline-block; }
+
+  /* ===== FOOTER ===== */
+  footer{
+    text-align:center;
+    padding:5rem 6vw 4rem;
+    border-top:1px dashed var(--line);
+  }
+  footer p{
+    font-family:var(--mono);
+    font-size:0.68rem;
+    color:var(--ink-soft);
+    letter-spacing:0.1em;
+  }
+
+  /* ===== BACK TO TOP ===== */
+  .to-top{
+    position:fixed;
+    right:1.8rem;
+    bottom:1.8rem;
+    width:54px;height:54px;
+    border-radius:50%;
+    background:var(--paper-card);
+    border:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    text-decoration:none;
+    color:var(--stamp-red);
+    font-family:var(--mono);
+    z-index:50;
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(12px) rotate(-8deg);
+    transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    box-shadow: 0 6px 18px rgba(30,36,33,0.08);
+  }
+  .to-top.visible{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0) rotate(0deg);
+  }
+  .to-top:hover{
+    border-color:var(--stamp-red);
+    box-shadow: 0 10px 24px rgba(168,64,44,0.18);
+  }
+  .to-top svg{ width:18px; height:18px; }
+  @media (max-width:760px){
+    .to-top{ right:1.1rem; bottom:1.1rem; width:46px; height:46px; }
+  }
+</style>
 </head>
 <body>
 
-<header>
-    <h1>旅の記憶</h1>
-    <p class="subtitle">いくつかの経由地、軌跡、そして供養としての記録</p>
-</header>
-    
-　　<main class="grid">
+<section class="hero" id="top">
+  <p class="eyebrow-mono">PASSPORT NO. — TRAVELOGUE / 個人旅行記録</p>
+  <h1>旅の記憶</h1>
+  <p class="lead">いくつかの経由地、軌跡、そして供養としての記録。<br>九つの旅程に、九つのスタンプを。</p>
+  <div class="passport-meta">
+    <span>ENTRIES<b>09</b></span>
+    <span>REGION<b>ASIA</b></span>
+    <span>FORMAT<b>ESSAY</b></span>
+    <span>STATUS<b>ONGOING</b></span>
+  </div>
+  <div class="scroll-cue"><span>SCROLL</span><span class="line"></span></div>
+</section>
+
+<div class="route-wrap">
+  <div class="route-line"></div>
+
+  <!-- 1 -->
+  <article class="entry" data-stamp="THAILAND / CAMBODIA">
     <a href="thai2011.html" class="card">
-        <div>
-            <h2 class="card-title">タイ・カンボジア旅行記</h2>
-            <p class="card-desc">遠い異国の風、クメールの微笑み</p>
-        </div>
-        <span class="card-link">Read Story →</span>
-    </a> 
-    
-    <main class="grid">
+      <div class="photo-ph" style="--ph-a:#e3b89a; --ph-b:#c97a52;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg>
+        <span class="ph-label">PHOTO — 47 SHOTS</span>
+      </div>
+      <div class="card-body">
+        <div class="card-route">BKK → SIEM REAP</div>
+        <h2 class="card-title">タイ・カンボジア旅行記</h2>
+        <p class="card-desc">遠い異国の風、クメールの微笑み。国境を越えるための作法を、自らに言い聞かせながら歩いた日々。</p>
+        <span class="card-link">Read Story <span>→</span></span>
+      </div>
+    </a>
+    <div class="stamp-col"><div class="stamp">2011<br>TH/KH</div></div>
+    <div class="spacer"></div>
+  </article>
+
+  <!-- 2 -->
+  <article class="entry">
+    <div class="spacer"></div>
+    <div class="stamp-col"><div class="stamp">TPE<br>九份</div></div>
     <a href="taiwan.html" class="card">
-        <div>
-            <h2 class="card-title">台湾旅行記</h2>
-            <p class="card-desc">静寂の路地と、夜市の明かりがくれたもの</p>
-        </div>
-        <span class="card-link">Read Story →</span>
+      <div class="photo-ph" style="--ph-a:#d8c79a; --ph-b:#8a6a4a;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><path d="M4 18l4-8 4 5 3-4 5 7H4z"/></svg>
+        <span class="ph-label">PHOTO SET</span>
+      </div>
+      <div class="card-body">
+        <div class="card-route">TAIPEI → JIUFEN</div>
+        <h2 class="card-title">台湾旅行記</h2>
+        <p class="card-desc">静寂の路地と、夜市の明かりがくれたもの。台北と九份、四日間の往復書簡のような記録。</p>
+        <span class="card-link">Read Story <span>→</span></span>
+      </div>
     </a>
+  </article>
 
- <main class="grid">
+  <!-- 3 -->
+  <article class="entry">
     <a href="chonju.html" class="card">
-        <div>
-            <h2 class="card-title">韓国清州彷徨記</h2>
-            <p class="card-desc">28,000円の航空券と、醤油の匂い</p>
-        </div>
-        <span class="card-link">Read Story →</span>
-    </a> 
-     
-<main class="grid">
+      <div class="photo-ph" style="--ph-a:#c9d6c4; --ph-b:#6f8f6a;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><circle cx="12" cy="9" r="3"/><path d="M12 21s7-6.6 7-12a7 7 0 1 0-14 0c0 5.4 7 12 7 12z"/></svg>
+        <span class="ph-label">PHOTO SET</span>
+      </div>
+      <div class="card-body">
+        <div class="card-route">NRT → CJJ</div>
+        <h2 class="card-title">韓国清州彷徨記</h2>
+        <p class="card-desc">28,000円の航空券と、醤油の匂い。計画もなく降り立った地方都市の、ささやかな彷徨。</p>
+        <span class="card-link">Read Story <span>→</span></span>
+      </div>
+    </a>
+    <div class="stamp-col"><div class="stamp">清州<br>KR</div></div>
+    <div class="spacer"></div>
+  </article>
+
+  <!-- 4 -->
+  <article class="entry">
+    <div class="spacer"></div>
+    <div class="stamp-col"><div class="stamp">2016<br>北京</div></div>
     <a href="pekin.html" class="card">
-        <div>
-            <h2 class="card-title">北京旅行記</h2>
-            <p class="card-desc">ラストエンペラーの舞台、万里の長城、そして小さなバーで交わした千円札の温もり</p>
-        </div>
-        <span class="card-link">Read Story →</span>
+      <div class="photo-ph" style="--ph-a:#cdb89a; --ph-b:#9c4f3a;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><path d="M3 12c2-3 4-4 9-4s7 1 9 4M5 16c2-2 4-3 7-3s5 1 7 3"/></svg>
+        <span class="ph-label">PHOTO — 16 SHOTS</span>
+      </div>
+      <div class="card-body">
+        <div class="card-route">NRT → PEK</div>
+        <h2 class="card-title">北京旅行記</h2>
+        <p class="card-desc">ラストエンペラーの舞台、万里の長城、そして小さなバーで交わした千円札の温もり。</p>
+        <span class="card-link">Read Story <span>→</span></span>
+      </div>
     </a>
+  </article>
 
-    <main class="grid">
+  <!-- 5 -->
+  <article class="entry">
     <a href="saigon.html" class="card">
-        <div>
-            <h2 class="card-title">ホーチミン旅行記</h2>
-            <p class="card-desc">2019年冬、熱気と混沌の４日間</p>
-        </div>
-        <span class="card-link">Read Story →</span>
-   </a>
-        
-<main class="grid">
+      <div class="photo-ph" style="--ph-a:#e3d28a; --ph-b:#b5482f;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><path d="M5 21V9l7-6 7 6v12M9 21v-7h6v7"/></svg>
+        <span class="ph-label">PHOTO SET</span>
+      </div>
+      <div class="card-body">
+        <div class="card-route">NRT → SGN</div>
+        <h2 class="card-title">ホーチミン旅行記</h2>
+        <p class="card-desc">2019年冬、熱気と混沌の四日間。ブイビエン通りの夜は、いつまでも明けないように思えた。</p>
+        <span class="card-link">Read Story <span>→</span></span>
+      </div>
+    </a>
+    <div class="stamp-col"><div class="stamp">SGN<br>2019</div></div>
+    <div class="spacer"></div>
+  </article>
+
+  <!-- 6 -->
+  <article class="entry">
+    <div class="spacer"></div>
+    <div class="stamp-col"><div class="stamp">VN<br>HAN-HOI</div></div>
     <a href="vietnam.html" class="card">
-        <div>
-            <h2 class="card-title">ベトナム旅行記</h2>
-            <p class="card-desc">「経由地のある人生」――ハノイからホイアンへ。壊れかけた自己を修復するための、静かなる再建の旅路。</p>
-        </div>
-        <span class="card-link">Read Story →</span>
+      <div class="photo-ph" style="--ph-a:#c0d3d6; --ph-b:#3f6e72;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><path d="M4 19c4-6 12-6 16 0M8 13c2-3 6-3 8 0M12 7v2"/></svg>
+        <span class="ph-label">PHOTO SET</span>
+      </div>
+      <div class="card-body">
+        <div class="card-route">HANOI → HOI AN</div>
+        <h2 class="card-title">ベトナム旅行記</h2>
+        <p class="card-desc">「経由地のある人生」。壊れかけた自己を修復するための、静かなる再建の旅路。</p>
+        <span class="card-link">Read Story <span>→</span></span>
+      </div>
     </a>
-    
+  </article>
+
+  <!-- 7 -->
+  <article class="entry">
     <a href="hongkong.html" class="card">
-        <div>
-            <h2 class="card-title">香港滞在記</h2>
-            <p class="card-desc">珠江（しゅこう）デルタを巡る旅。</p>
-        </div>
-        <span class="card-link">Read Story →</span>
+      <div class="photo-ph" style="--ph-a:#2a2f33; --ph-b:#5c6066;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><rect x="4" y="10" width="4" height="11"/><rect x="10" y="6" width="4" height="15"/><rect x="16" y="3" width="4" height="18"/></svg>
+        <span class="ph-label">PHOTO — 11 SHOTS</span>
+      </div>
+      <div class="card-body">
+        <div class="card-route">HKG / SHENZHEN / MACAU</div>
+        <h2 class="card-title">香港滞在記</h2>
+        <p class="card-desc">珠江（しゅこう）デルタを巡る旅。2015年1月、三都市をまたぐ短い滞在の記録。</p>
+        <span class="card-link">Read Story <span>→</span></span>
+      </div>
     </a>
+    <div class="stamp-col"><div class="stamp">2015<br>HK</div></div>
+    <div class="spacer"></div>
+  </article>
 
+  <!-- 8 -->
+  <article class="entry">
+    <div class="spacer"></div>
+    <div class="stamp-col"><div class="stamp">SIN-BKK<br>RAIL</div></div>
     <a href="malaysia.html" class="card">
-        <div>
-            <h2 class="card-title">マレー鉄道と食の旅</h2>
-            <p class="card-desc">シンガポールからペナン、そしてバンコクへ。車窓を流れる熱帯の景色と、混ざり合う文化を五感で辿る。</p>
-        </div>
-        <span class="card-link">Read Story →</span>
+      <div class="photo-ph" style="--ph-a:#dccf9a; --ph-b:#3a6f5e;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M3 12h18M7 17l-2 4M17 17l2 4"/></svg>
+        <span class="ph-label">PHOTO — 29 SHOTS</span>
+      </div>
+      <div class="card-body">
+        <div class="card-route">SINGAPORE → PENANG → BANGKOK</div>
+        <h2 class="card-title">マレー鉄道と食の旅</h2>
+        <p class="card-desc">車窓を流れる熱帯の景色と、混ざり合う文化を五感で辿る、長距離鉄道の記録。</p>
+        <span class="card-link">Read Story <span>→</span></span>
+      </div>
     </a>
+  </article>
 
+  <!-- 9 -->
+  <article class="entry">
     <a href="kyoto.html" class="card">
-        <div>
-            <h2 class="card-title">冬の京都</h2>
-            <p class="card-desc">「供養という形式」――冷徹な冬の空気のなかで、静かに過去と向き合い、手向けるための散策。</p>
-        </div>
-        <span class="card-link">Read Story →</span>
+      <div class="photo-ph" style="--ph-a:#cdd2d6; --ph-b:#6a7680;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><path d="M12 2v6M5 10h14l-2 11H7L5 10z"/></svg>
+        <span class="ph-label">PHOTO SET</span>
+      </div>
+      <div class="card-body">
+        <div class="card-route">KYOTO, WINTER</div>
+        <h2 class="card-title">冬の京都</h2>
+        <p class="card-desc">「供養という形式」。冷徹な冬の空気のなかで、静かに過去と向き合い、手向けるための散策。</p>
+        <span class="card-link">Read Story <span>→</span></span>
+      </div>
     </a>
-</main>
+    <div class="stamp-col"><div class="stamp">京都<br>WINTER</div></div>
+    <div class="spacer"></div>
+  </article>
+
+</div>
 
 <footer>
-    <p>© Travelogue Portfolio</p>
+  <p>© TRAVELOGUE PORTFOLIO — NINE ENTRIES, ONE PASSPORT</p>
 </footer>
+
+<a href="#top" class="to-top" id="toTop" aria-label="文頭へ戻る">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</a>
+
+<script>
+  const entries = document.querySelectorAll('.entry');
+  const io = new IntersectionObserver((items)=>{
+    items.forEach(it=>{
+      if(it.isIntersecting){
+        it.target.classList.add('in-view');
+        io.unobserve(it.target);
+      }
+    });
+  }, { threshold: 0.18 });
+  entries.forEach(e=>io.observe(e));
+
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', ()=>{
+    toTop.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
+  }, { passive:true });
+</script>
 
 </body>
 </html>
